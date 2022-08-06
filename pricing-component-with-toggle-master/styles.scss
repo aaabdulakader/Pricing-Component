@@ -1,0 +1,242 @@
+// Colors
+
+$VeryLightGrayishBlue: #f6f6fe;
+$LightGrayishBlue: #b3b5c6;
+$GrayishBlue: #6d708d;
+$DarkGrayishBlue: #494c5f;
+
+// Font
+$primaryFont: "Montserrat";
+
+// Mixins
+@mixin flex-column-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@mixin cards {
+  min-width: 33.3%;
+  padding: 2rem;
+  overflow: hidden;
+  .price {
+    display: flex;
+    align-items: center;
+    font-size: 2rem;
+    gap: 0.5rem;
+    color: $DarkGrayishBlue;
+  }
+  .plan-price {
+    font-size: 4.5rem;
+    margin: 1rem 0;
+  }
+  .cta-btn {
+    margin-top: 2rem;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.5rem;
+    color: #fff;
+    font-weight: 700;
+    width: 100%;
+    padding: 1rem 0;
+    background-image: linear-gradient(
+      to right,
+      hsl(236, 72%, 79%),
+      hsl(237, 63%, 64%)
+    );
+  }
+  .cta-btn:hover {
+    cursor: pointer;
+    color: hsl(237, 63%, 64%);
+    background-image: none;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 2px hsl(237, 63%, 64%);
+  }
+}
+
+html,
+body {
+  position: relative;
+  font-family: $primaryFont;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  max-width: fit-content;
+  background-color: $VeryLightGrayishBlue;
+}
+
+.card,
+.plan-details,
+.container,
+.pricing,
+main {
+  @include flex-column-center();
+}
+.container::before {
+  content: url(images/bg-top.svg);
+  right: 0;
+  top: 0;
+  position: absolute;
+  z-index: 1;
+}
+.container::after {
+  content: url(images/bg-bottom.svg);
+  left: 0;
+  bottom: 0;
+  position: absolute;
+  z-index: 1;
+}
+.container {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  margin-bottom: 1rem;
+
+  //   Pricing
+  .pricing {
+    margin-bottom: 5rem;
+    .title {
+      color: $GrayishBlue;
+      font-size: 1.5rem;
+    }
+    .plan-types {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      color: $LightGrayishBlue;
+      .toggle {
+        display: flex;
+        align-items: center;
+        height: 26px;
+        width: 50px;
+        background-image: linear-gradient(
+          to right,
+          hsl(236, 72%, 79%),
+          hsl(237, 63%, 64%)
+        );
+        border-radius: 1rem;
+        position: relative;
+
+        .switch {
+          height: 20px;
+          width: 20px;
+          background-color: $VeryLightGrayishBlue;
+          border-radius: 50%;
+          position: absolute;
+          left: 27px;
+          transition: all 200ms ease-in;
+        }
+      }
+      :nth-child(2):hover {
+        cursor: pointer;
+        opacity: 60%;
+      }
+    }
+  }
+  //   Plans
+  .plans {
+    margin-bottom: 1rem;
+    position: relative;
+    background-color: $VeryLightGrayishBlue;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    align-items: center;
+    box-shadow: 0 0 70px hsla(236, 72%, 79%, 0.384);
+    width: 70%;
+    z-index: 10;
+    border-radius: 0.5rem;
+    .card {
+      padding: 1.5rem;
+      color: $GrayishBlue;
+      @include cards();
+
+      .plan-details {
+        width: 100%;
+        :last-child {
+          border-bottom: 0.5px solid $LightGrayishBlue;
+        }
+        .plan-feature {
+          width: 100%;
+          padding-block: 1rem;
+          margin: 0;
+          text-align: center;
+          border-top: 0.5px solid $LightGrayishBlue;
+        }
+      }
+    }
+    .professional {
+      border-radius: 0.5rem;
+      height: 95%;
+      justify-content: center;
+      color: $VeryLightGrayishBlue;
+      background-image: linear-gradient(
+        to bottom,
+        hsl(236, 72%, 79%),
+        hsl(237, 63%, 64%)
+      );
+      .price {
+        color: $VeryLightGrayishBlue;
+      }
+      .cta-btn {
+        background-image: none;
+        background-color: #fff;
+        color: hsl(237, 63%, 64%);
+      }
+      .cta-btn:hover {
+        box-shadow: inset 0 0 0 2px #fff !important;
+        color: #fff;
+      }
+    }
+  }
+}
+
+// Mobile
+@media (max-width: 1024px) {
+  .card {
+    .plan-price {
+      font-size: 3rem !important;
+    }
+  }
+}
+@media (max-width: 810px) {
+  .container {
+    height: auto;
+    padding: 2rem 0;
+  }
+  .pricing {
+    margin-bottom: 3rem;
+    position: relative;
+    z-index: 10;
+  }
+  .container::before {
+    top: -6rem;
+  }
+  .container::after {
+    display: none;
+  }
+  .plans {
+    grid-template-columns: auto !important;
+    gap: 4rem;
+    box-shadow: none !important;
+    min-width: 85%;
+  }
+  .card {
+    box-shadow: 0 0 0px hsla(236, 72%, 79%, 0.384);
+  }
+  .basic,
+  .master {
+    background-color: #fff;
+    border-radius: 0.5rem;
+  }
+}
+@media (max-width: 500px) {
+  .container::before {
+    top: -3rem;
+    width: 50%;
+    overflow: hidden;
+  }
+  .card .title {
+    margin: 0;
+  }
+}
